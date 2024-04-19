@@ -1,18 +1,14 @@
-// Import necessary libraries
 import jayvee as jv
 
-// Define the pipeline
 pipeline AirportDataPipeline {
-    // Define the extractor block
     block AirportDataExtractor oftype CSVExtractor {
-        url = "https://opendata.rhein-kreis-neuss.de/api/explore/v2.1/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B";
-        delimiter = ';';
+        url: "https://opendata.rhein-kreis-neuss.de/api/explore/v2.1/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B";
+        delimiter: ';';
     }
 
-    // Define the interpreter block
     block AirportDataTableInterpreter oftype TableInterpreter {
-        header = true;
-        columns = [
+        header: true;
+        columns: [
             "Airport ID" oftype integer,
             "Name" oftype text,
             "City" oftype text,
@@ -30,12 +26,10 @@ pipeline AirportDataPipeline {
         ];
     }
 
-    // Define the loader block
     block AirportDataLoader oftype SQLiteLoader {
-        table = "airports";
-        file = "airports.sqlite";
+        table: "airports";
+        file: "airports.sqlite";
     }
 
-    // Define the pipeline flow
     AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataLoader;
 }
