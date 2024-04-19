@@ -7,20 +7,19 @@ pipeline AirportDataPipeline {
     block AirportDataTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            "Airport ID" oftype integer,
-            "Name" oftype text,
-            "City" oftype text,
-            "Country" oftype text,
-            "IATA" oftype text,
-            "ICAO" oftype text,
-            "Latitude" oftype decimal,
-            "Longitude" oftype decimal,
-            "Altitude" oftype integer,
-            "Timezone" oftype text,
-            "DST" oftype text,
-            "Tz database time zone" oftype text,
-            "Type" oftype text,
-            "Source" oftype text
+                "Lfd. Nummer" oftype integer,
+                "Name" oftype text,
+                "Ort" oftype text,
+                "Land" oftype text,
+                "IATA" oftype text,
+                "ICAO" oftype text,
+                "Latitude" oftype decimal,
+                "Longitude" oftype decimal,
+                "Altitude" oftype integer,
+                "Zeitzone" oftype decimal,
+                "DST" oftype text,
+                "Zeitzonen-Datenbank" oftype text,
+                "geo_punkt" oftype text
         ];
     }
 
