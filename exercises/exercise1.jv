@@ -23,13 +23,14 @@ pipeline AirportDataPipeline {
         ];
     }
 
-    block AirportDataValidator oftype DataValidator {
-        rules: [
-            "Latitude" range (-90, 90),
-            "Longitude" range (-180, 180),
-            "Altitude" non_negative,
-            "IATA" length (3),
-            "ICAO" length (4)
+    // Hypothetical correct syntax for data validation
+    block AirportDataValidator oftype CustomDataValidator {
+        validate: [
+            validate_range("Latitude", -90, 90);
+            validate_range("Longitude", -180, 180);
+            validate_non_negative("Altitude");
+            validate_length("IATA", 3);
+            validate_length("ICAO", 4);
         ];
     }
 
@@ -40,3 +41,4 @@ pipeline AirportDataPipeline {
 
     AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataValidator -> AirportDataLoader;
 }
+
