@@ -23,22 +23,13 @@ pipeline AirportDataPipeline {
         ];
     }
 
-    block AirportDataValidator oftype GenericValidator {
-        rules: [
-            "Latitude should be between -90 and 90",
-            "Longitude should be between -180 and 180",
-            "Altitude should be non-negative",
-            "IATA should have 3 characters",
-            "ICAO should have 4 characters"
-        ];
-    }
-
     block AirportDataLoader oftype SQLiteLoader {
         table: "airports";
         file: "airports.sqlite";
     }
 
-    AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataValidator -> AirportDataLoader;
+    AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataLoader;
 }
+
 
 
