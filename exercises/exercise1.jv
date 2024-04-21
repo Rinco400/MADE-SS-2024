@@ -23,10 +23,20 @@ pipeline AirportDataPipeline {
         ];
     }
 
+    block AirportDataValidator oftype DataValidator {
+        rules: [
+            "Latitude" range (-90, 90),
+            "Longitude" range (-180, 180),
+            "Altitude" non_negative,
+            "IATA" length (3),
+            "ICAO" length (4)
+        ];
+    }
+
     block AirportDataLoader oftype SQLiteLoader {
         table: "airports";
         file: "airports.sqlite";
     }
 
-    AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataLoader;
+    AirportDataExtractor -> AirportDataTableInterpreter -> AirportDataValidator -> AirportDataLoader;
 }
