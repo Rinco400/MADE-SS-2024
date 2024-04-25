@@ -17,7 +17,7 @@ pipeline TreesDataPipeline {
             "standort" oftype text,
             "baumart_botanisch" oftype text,
             "baumart_deutsch" oftype text, 
-            "id" oftype decimal,            
+            "id" oftype text,            
             "baumfamilie" oftype text
             // Additional columns are defined as required
         ];
