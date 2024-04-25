@@ -15,8 +15,10 @@ pipeline TreesDataPipeline {
             "lfd_nr" oftype integer,
             //"stadtteil" oftype text constraint FurthPrefixConstraint,
             "standort" oftype text,
-            "id" oftype text, // Assuming handling of regex validation internally
-            "stadtteil" oftype text // Handling filtering for 'Furth-' in a data filtering step
+            "id" oftype text, 
+            "stadtteil" oftype text,
+            "baumart_botanisch" oftype text,
+            "baumfamilie" oftype text
             // Additional columns are defined as required
         ];
     }
@@ -28,7 +30,6 @@ pipeline TreesDataPipeline {
         table: "trees";
         file: "trees.sqlite";
     }
-
     // Connecting blocks
     CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> MpgColumnDeleter -> ValidDataFilter ->  SQLiteDataLoader;
 }
