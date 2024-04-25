@@ -12,10 +12,16 @@ pipeline TreesDataPipeline {
     block ValidDataFilter oftype TableInterpreter {
         header: true;
         columns: [
+            "lfd_nr" oftype integer,
+            //"stadtteil" oftype text constraint FurthPrefixConstraint,
+            "standort" oftype text,
             "id" oftype text, // Assuming handling of regex validation internally
             "stadtteil" oftype text // Handling filtering for 'Furth-' in a data filtering step
             // Additional columns are defined as required
         ];
+    }
+     block MpgColumnDeleter oftype ColumnDeleter {
+        delete: [column E];
     }
 
     block SQLiteDataLoader oftype SQLiteLoader {
@@ -24,8 +30,12 @@ pipeline TreesDataPipeline {
     }
 
     // Connecting blocks
-    CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> ValidDataFilter -> SQLiteDataLoader;
+    CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> MpgColumnDeleter -> ValidDataFilter ->  SQLiteDataLoader;
 }
 
-// Make sure all regex and filtering logic are correctly implemented or handled in a block that supports these operations.
+
+
+
+
+
 
