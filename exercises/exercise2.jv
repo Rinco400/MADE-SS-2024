@@ -13,11 +13,11 @@ pipeline TreesDataPipeline {
         header: true;
         columns: [
             "lfd_nr" oftype integer,
-            //"stadtteil" oftype text constraint FurthPrefixConstraint,
+            "stadtteil" oftype text,//"stadtteil" oftype text constraint FurthPrefixConstraint,
             "standort" oftype text,
-            "id" oftype text, 
-            "stadtteil" oftype text,
             "baumart_botanisch" oftype text,
+            "baumart_deutsch" oftype text, 
+            "id" oftype decimal,            
             "baumfamilie" oftype text
             // Additional columns are defined as required
         ];
