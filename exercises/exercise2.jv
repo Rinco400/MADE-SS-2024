@@ -1,25 +1,31 @@
-pipeline TreesPipeline {
-    block CSVDataExtractor oftype CSVExtractor {
+pipeline TreesDataPipeline {
+    block CSVDataExtractor oftype HttpExtractor {
         url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
-        delimiter: ',';
     }
 
-    // Assuming TableInterpreter can perform basic filtering, modify this if incorrect:
-    block DataTransformer oftype TableInterpreter {
+    block TextFileInterpreter oftype TextFileInterpreter {}
+
+    block CSVInterpreter oftype CSVInterpreter {
+        delimiter: ';';
+    }
+
+    block ValidDataFilter oftype TableInterpreter {
         header: true;
-        // Example of handling columns and filtering within available properties:
         columns: [
-            "id" oftype text, // Include filtering conditions if supported
-            "stadtteil" oftype text // Filter condition could be added if supported
-            // Ensure only valid columns are included
+            "id" oftype text, // Assuming handling of regex validation internally
+            "stadtteil" oftype text // Handling filtering for 'Furth-' in a data filtering step
+            // Additional columns are defined as required
         ];
     }
 
-    // Assuming we can load data directly into SQLite and handle data cleaning during transformation
     block SQLiteDataLoader oftype SQLiteLoader {
         table: "trees";
         file: "trees.sqlite";
     }
 
-    CSVDataExtractor -> DataTransformer -> SQLiteDataLoader;
+    // Connecting blocks
+    CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> ValidDataFilter -> SQLiteDataLoader;
 }
+
+// Make sure all regex and filtering logic are correctly implemented or handled in a block that supports these operations.
+
