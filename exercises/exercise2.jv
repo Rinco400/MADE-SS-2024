@@ -1,0 +1,25 @@
+pipeline TreesPipeline {
+    block CSVDataExtractor oftype CSVExtractor {
+        url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
+        delimiter: ',';
+    }
+
+    // Assuming TableInterpreter can perform basic filtering, modify this if incorrect:
+    block DataTransformer oftype TableInterpreter {
+        header: true;
+        // Example of handling columns and filtering within available properties:
+        columns: [
+            "id" oftype text, // Include filtering conditions if supported
+            "stadtteil" oftype text // Filter condition could be added if supported
+            // Ensure only valid columns are included
+        ];
+    }
+
+    // Assuming we can load data directly into SQLite and handle data cleaning during transformation
+    block SQLiteDataLoader oftype SQLiteLoader {
+        table: "trees";
+        file: "trees.sqlite";
+    }
+
+    CSVDataExtractor -> DataTransformer -> SQLiteDataLoader;
+}
