@@ -9,34 +9,37 @@ pipeline TreesDataPipeline {
         delimiter: ';';
     }
 
+    block ColumnDeleter oftype ColumnDeleter {
+        delete: [column E]; 
+    }
+
     block ValidDataFilter oftype TableInterpreter {
         header: true;
         columns: [
             "lfd_nr" oftype integer,
-            "stadtteil" oftype text,//"stadtteil" oftype text constraint FurthPrefixConstraint,
+            "stadtteil" oftype text,
             "standort" oftype text,
             "baumart_botanisch" oftype text,
-            "baumart_deutsch" oftype text, 
+            "baumart_deutsch" oftype text,
             "id" oftype text,            
             "baumfamilie" oftype text
-            // Additional columns are defined as required
         ];
+       
     }
-     block MpgColumnDeleter oftype ColumnDeleter {
-        delete: [column E];
+
+    constraint StadtteilConstraint oftype AllowlistConstraint {
+        allowlist: ["Furth-Nord", "Furth-Mitte", "Furth Süd"];
+    }
+
+    constraint IDGeoPattern oftype RegexConstraint {
+        regex: /^\d{1,3}\.\d+, \d{1,3}\.\d+$/;
     }
 
     block SQLiteDataLoader oftype SQLiteLoader {
         table: "trees";
         file: "trees.sqlite";
     }
+
     // Connecting blocks
-    CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> MpgColumnDeleter -> ValidDataFilter ->  SQLiteDataLoader;
+    CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> ColumnDeleter -> ValidDataFilter -> SQLiteDataLoader;
 }
-
-
-
-
-
-
-
