@@ -38,10 +38,10 @@ pipeline TreesDataPipeline {
 
     valuetype StadtteilFurth oftype text {
         constraints: [
-            FurthPrefix,
+            Furth,
         ];
     }
-    constraint FurthPrefix oftype RegexConstraint {
+    constraint Furth oftype RegexConstraint {
         regex: /^Furth-.*/;
     }
 
