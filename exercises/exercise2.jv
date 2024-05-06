@@ -27,31 +27,27 @@ pipeline TreesDataPipeline {
        
     }
 
-     valuetype GeoPattern oftype text {
+    valuetype GeoPattern oftype text {
     constraints: [
         IDGeoPattern
     ];
     }
-
     constraint IDGeoPattern oftype RegexConstraint {
         regex: /^\d{1,3}\.\d+, \d{1,3}\.\d+$/;
     }
-    valuetype StadtteilFurth oftype text {
-    constraints: [
-        FurthAllowlist,
-    ];
-    }
 
-    constraint FurthAllowlist oftype AllowlistConstraint {
-     allowlist:["Furth-Mitte", "Furth-Nord", "Furth Süd", "Furth-Süd"];
+    valuetype StadtteilFurth oftype text {
+        constraints: [
+            FurthPrefix,
+        ];
+    }
+    constraint FurthPrefix oftype RegexConstraint {
+        regex: /^Furth-.*/;
     }
 
     block SQLiteDataLoader oftype SQLiteLoader {
         table: "trees";
         file: "trees.sqlite";
     }
-    
-
-    // Connecting blocks
     CSVDataExtractor -> TextFileInterpreter -> CSVInterpreter -> ColumnDeleter -> ValidDataFilter -> SQLiteDataLoader;
 }
