@@ -1,9 +1,9 @@
-##Topic: Evaluating the Effectiveness of Environmental Regulations on Water Safety
+## Topic: Evaluating the Effectiveness of Environmental Regulations on Water Safety
 
-##Main Question
+## Main Question
 How effective are environmental regulations in managing the safety of groundwater sources, as reflected in changes to radioactivity levels?
 
-##Summary:
+## Summary:
 This project aims to assess the impact of environmental regulations on groundwater safety, particularly focusing on the changes in radioactivity levels in natural mineral water. With climate change influencing water resources, understanding the effectiveness of policy measures is crucial for ensuring safe and sustainable water supplies. The project will analyze historical data on groundwater levels and radioactivity to investigate whether regulatory interventions have led to significant changes in water quality.
 
 ##Goal:
