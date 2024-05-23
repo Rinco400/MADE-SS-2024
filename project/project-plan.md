@@ -22,7 +22,7 @@ The main goal of this research is to determine the effectiveness of environmenta
 
 ### Datasource 2:govdata.de
 * Metadata URL 1: https://www.govdata.de/ckan/dataset/veranderungen-der-grundwasserstande.rdf
-* Data URL 1: https://geoserver.digitale-mrn.de/geoserver/metropolatlas/ows   service=WFS&version=1.0.0&request=GetFeature&typeName=metropolatlas%3AMRN_Grundwasser_2023-05&outputFormat=csv
+* Data URL 1: https://geoserver.digitale-mrn.de/geoserver/metropolatlas/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=metropolatlas%3AMRN_Grundwasser_2023-05&outputFormat=csv
 * Data Type: CSV
 * Data of Changes in groundwater levels
 
