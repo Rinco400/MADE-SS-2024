@@ -28,4 +28,8 @@ The primary goal of this project, "Comparative Analysis of Radioactivity in Baby
 2. Data Analysis
 3. Analysis and Interpretation
 4. Impact Assessment and Recommendations
+<<<<<<< HEAD
 5. Dissemination and Closing
+=======
+5. Dissemination and Closing
+>>>>>>> origin/main
