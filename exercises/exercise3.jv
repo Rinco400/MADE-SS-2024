@@ -1,0 +1,73 @@
+pipeline goodsTransportDataPipeline {
+    block dataExtractor oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+    }
+    block textFileInterpreter oftype TextFileInterpreter {
+        encoding: "latin3";
+    }
+    block csvInterpreter oftype CSVInterpreter {
+        delimiter: ';';
+    }
+
+    block dataSelector oftype CellRangeSelector {
+        select: range A9:AU41336;
+    }
+    block columnRemover oftype ColumnDeleter {
+        delete: [
+            column Z, column G, column S, column K, column M, column O, column U, 
+            column P, column X, column Q, column R, column T, column J, column Y, 
+            column F, column V, column W, column H, column L, column N, column AE, 
+            column AA, column AB, column AC, column AD, column AF, column AG, column AH, 
+            column AI, column AJ, column AK, column AL, column AM, column AN, column AO, 
+            column AP, column AQ, column AR, column AS
+            ];
+    }
+    constraint positiveIntConstraint oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: false;
+    }
+    valuetype positiveInt oftype integer {
+        constraints: [
+            positiveIntConstraint,
+        ];
+    }
+    constraint germanMonthConstraint oftype AllowlistConstraint {
+        allowlist: ["Januar", "Februar", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    }
+    valuetype germanMonth oftype text {
+        constraints: [
+            germanMonthConstraint,
+        ];
+    }
+    constraint goodsIdRegex oftype RegexConstraint {
+        regex: /^NST7-[A-Z0-9]{3}$/;
+    }
+    valuetype goodsId oftype text {
+        constraints: [
+            goodsIdRegex,
+        ];
+    }
+    block tableInterpreter oftype TableInterpreter {
+        header: false;
+        columns: [
+            "year" oftype positiveInt,
+            "month" oftype germanMonth,
+            "goods_id" oftype goodsId,
+            "goods_name" oftype text,
+            "goods_source" oftype text,
+            "abroad" oftype positiveInt,
+            "total" oftype positiveInt
+        ];
+    }
+    block dataLoader oftype SQLiteLoader {
+        table: 'goods';
+        file: './goodsTransportedByTrain.sqlite';
+    }
+    dataExtractor
+        ->textFileInterpreter
+        ->csvInterpreter
+        ->dataSelector
+        ->columnRemover
+        ->tableInterpreter
+        ->dataLoader;
+    }
