@@ -3,36 +3,32 @@ pipeline goodsTransportDataPipeline {
         url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
     }
     block textFileInterpreter oftype TextFileInterpreter {
-        encoding: "latin3";
+        encoding: "latin6";
     }
     block csvInterpreter oftype CSVInterpreter {
-        delimiter: ';';
+        delimiter: ";" ;
     }
 
     block dataSelector oftype CellRangeSelector {
-        select: range A9:AU41336;
+        select: range A9:AU*;
     }
     block columnRemover oftype ColumnDeleter {
         delete: [
-            column Z, column G, column S, column K, column M, column O, column U, 
-            column P, column X, column Q, column R, column T, column J, column Y, 
-            column F, column V, column W, column H, column L, column N, column AE, 
-            column AA, column AB, column AC, column AD, column AF, column AG, column AH, 
-            column AI, column AJ, column AK, column AL, column AM, column AN, column AO, 
-            column AP, column AQ, column AR, column AS
+            column F, column G, column H, column I, column J, column K, column L, column M, column N, column O, column P, column Q,
+            column R, column S, column T, column U, column V, column W, column X, column Y, column Z, column AA, column AB, column AC,
+            column AD, column AE, column AF, column AG, column AH, column AI, column AJ, column AK, column AL, column AM, column AN,
+            column AO, column AP, column AQ, column AR, column AS
             ];
     }
-    constraint positiveIntConstraint oftype RangeConstraint {
-        lowerBound: 0;
-        lowerBoundInclusive: false;
-    }
     valuetype positiveInt oftype integer {
-        constraints: [
-            positiveIntConstraint,
-        ];
+        constraints: [ NumberGreaterThanZero ] ;
     }
+
+    constraint NumberGreaterThanZero on integer :
+        value > 0 ;
+
     constraint germanMonthConstraint oftype AllowlistConstraint {
-        allowlist: ["Januar", "Februar", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+        allowlist: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
     }
     valuetype germanMonth oftype text {
         constraints: [
@@ -40,7 +36,7 @@ pipeline goodsTransportDataPipeline {
         ];
     }
     constraint goodsIdRegex oftype RegexConstraint {
-        regex: /^NST7-[A-Z0-9]{3}$/;
+        regex: /^NST7-[A-Z0-9]{3}/;
     }
     valuetype goodsId oftype text {
         constraints: [
