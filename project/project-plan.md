@@ -24,12 +24,12 @@ The primary goal of this project, "Comparative Analysis of Radioactivity in Baby
 * Measurement results for radioactivity in: Baby food vegetables and chicken with noodles 
 
 ## Work Packages
-1. Data Collection and Preprocessing
-2. Data Analysis
-3. Analysis and Interpretation
-4. Impact Assessment and Recommendations
-<<<<<<< HEAD
-5. Dissemination and Closing
-=======
-5. Dissemination and Closing
->>>>>>> origin/main
+1. Data Collection and Preprocessing[#1][i1]
+2. Data Analysis[#2][i2]
+3. Analysis and Interpretation[#3][i3]
+4. Impact Assessment and Recommendations[#4][i4]
+
+[i1]: https://github.com/Rinco400/MADE-SS-2024/issues/3
+[i2]: https://github.com/Rinco400/MADE-SS-2024/issues/4
+[i3]: https://github.com/Rinco400/MADE-SS-2024/issues/5
+[i4]: https://github.com/Rinco400/MADE-SS-2024/issues/6
