@@ -1,4 +1,4 @@
-pipeline GoodsPipeline {
+pipeline gtfsPipeline {
 
     GTFSZipExtractor 
         -> ZipArchiveInterpreter
@@ -24,27 +24,14 @@ pipeline GoodsPipeline {
 
 
     block LatinTextFileInterpreter oftype TextFileInterpreter { 
-        encoding:"latin4";
+        encoding:"latin6";
     }
 
     block CSVInterpreter oftype CSVInterpreter {
         enclosing: '"';
         delimiter: ",";
     }
-
-
-    valuetype Zone oftype integer {
-        constraints: [ Zone1645 ];
-           }
-
-    constraint Zone1645 oftype RangeConstraint {
-        lowerBound: 1645;
-        upperBound: 1645;
-        upperBoundInclusive: true;
-    }
-
- 
-    valuetype GeographicCoordinate oftype decimal {
+    valuetype GeoCoordinate oftype decimal {
         constraints: [ GeographicCoordinateConstraint ];
     }
 
@@ -54,13 +41,23 @@ pipeline GoodsPipeline {
         upperBoundInclusive: true;
     }
 
+    valuetype Zone oftype integer {
+        constraints: [ Zone1645 ];
+           }
+
+    constraint Zone1645 oftype RangeConstraint {
+        lowerBound: 1645;
+        upperBound: 1645;
+        upperBoundInclusive: true;
+    } 
+
     block StopsTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
             "stop_id" oftype integer,
             "stop_name" oftype text,
-            "stop_lat" oftype GeographicCoordinate,
-            "stop_lon" oftype GeographicCoordinate,
+            "stop_lat" oftype GeoCoordinate,
+            "stop_lon" oftype GeoCoordinate,
             "zone_id" oftype Zone
         ];
     }
