@@ -3,7 +3,7 @@ pipeline goodsTransportDataPipeline {
         url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
     }
     block textFileInterpreter oftype TextFileInterpreter {
-        encoding: "latin6";
+        encoding: "latin3";
     }
     block csvInterpreter oftype CSVInterpreter {
         delimiter: ";" ;

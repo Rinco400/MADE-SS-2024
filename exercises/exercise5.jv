@@ -23,8 +23,7 @@ pipeline gtfsPipeline {
     }
 
 
-    block LatinTextFileInterpreter oftype TextFileInterpreter { 
-        encoding:"latin6";
+    block LatinTextFileInterpreter oftype TextFileInterpreter {         
     }
 
     block CSVInterpreter oftype CSVInterpreter {
