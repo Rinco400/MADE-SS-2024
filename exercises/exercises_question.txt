@@ -1,0 +1,96 @@
+Exercises
+Exercise 1
+Build an automated data pipeline for the following source:
+https://opendata.rhein-kreis-neuss.de/api/explore/v2.1/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B
+Goal
+Write data into a SQLite database called “airports.sqlite”, in the table “airports”
+Assign fitting built-in SQLite types (e.g., BIGINT, TEXT or FLOAT) to all columns
+Do not rename column names
+No further data validation is required, do not drop any rows or change any data points
+Use Jayvee version 0.4.0
+Submit as  /exercises/exercise1.jv
+Exercise 2
+Build an automated data pipeline for the following source:
+https://www.govdata.de/web/guest/suchen/-/details/stadt-neuss-baumpflanzungen-2023
+direct link to CSV: https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv
+Goal
+Keep only valid data we are interested in
+Define types of values and constraints for them
+We are only interested in Furth, valid stadtteil start with "Furth-"
+"id" contains geopoints with the following pattern:
+{geo-coordinate 1}, {geo-coordinate 2}
+a geo-coordinate is defined as {1-3 numbers}.{numbers}
+Drop "baumart_deutsch" column
+Drop all rows with invalid values
+Assign fitting built-in SQLite types (e.g., BIGINT, TEXT or FLOAT) to all columns
+Write data into a SQLite database called “trees.sqlite”, in the table “trees”
+Use Jayvee version 0.4.0
+Submit as  /exercises/exercise2.jv
+Exercise 3
+Build an automated data pipeline for the following source:
+https://mobilithek.info/offers/-94981960701408443
+direct link to CSV: https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv
+Goal
+Remove metadata rows (initial description and headers [data starts in row 9], copyright notice in the footer)
+Ensure German umlauts are saved correctly
+Select only a subset of columns
+Data about time and transported goods: Column A-E
+Data about quantity: Column AT-AU
+Add header names for the first columns A-E
+New names: 'year', 'month', 'goods_id', 'goods_name', 'goods_source'
+Rename headers for the quantity columns AT-AU
+New names: 'abroad', 'total'
+Choose suitable value types for all columns
+Numeric values must be positive integers
+'month' must be a German month, capitalized
+'goods_id' must start with NST7-, followed by three numbers or capital letters
+Drop rows with missing or invalid values
+Assign fitting built-in SQLite types (e.g., BIGINT, TEXT or FLOAT) to all columns
+Write data into a SQLite database called “goodsTransportedByTrain.sqlite”, in the table “goods”
+Use Jayvee version 0.4.0
+Submit as  /exercises/exercise3.jv
+Exercise 4
+Build an automated data pipeline for the following source:
+https://mobilithek.info/offers/526718847762190336
+Direct download link: https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip
+Goal
+Download and unzip data
+Use the “data.csv” in the zip file
+Reshape data
+Only use the columns "Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C"
+There can be multiple temperature measurements per row
+You can ignore all columns to the right of the first “​​Geraet aktiv”
+Translate/rename column headers from German to English:
+“Geraet” to “id”
+“Hersteller” to “producer”
+“Model” to “model”
+“Monat” to “month”
+“Temperatur in °C (DWD)” to “temperature”
+“Batterietemperatur in °C” to “battery_temperature”
+Transform data
+Transform temperatures in Celsius to Fahrenheit (formula is (TemperatureInCelsius * 9/5) + 32) in place (keep the same column names)
+For the columns temperature and battery_temperature
+Validate data
+Use validations as you see fit, e.g., for “Geraet” to be an id over 0
+Use fitting SQLite types (e.g., BIGINT, TEXT or FLOAT) for all columns
+Write data into a SQLite database called “temperatures.sqlite”, in the table “temperatures”
+Use Jayvee version 0.4.0
+Submit as  /exercises/exercise4.jv
+Exercise 5
+Build an automated data pipeline for the following source:
+Direct download link: https://gtfs.rhoenenergie-bus.de/GTFS.zip
+Goal
+Work with domain-specific GTFS data
+Pick out only stops (from stops.txt)
+Only the columns stop_id, stop_name, stop_lat, stop_lon, zone_id with fitting data types
+Filter data
+Only keep stops from zone 1645
+Validate data
+stop_name must be a text but must maintain german umlauts
+stop_lat/stop_lon must be a geographic coordinates between -90 and 90, including upper/lower bounds
+Drop rows containing invalid data
+Use fitting SQLite types (e.g., BIGINT, TEXT or FLOAT) for all columns
+Write data into a SQLite database called “gtfs.sqlite”, in the table “stops”
+Use Jayvee version 0.4.0
+The documentation link is https://jvalue.github.io/jayvee/docs/0.4.0/user/intro/
+Submit as  /exercises/exercise5.jv
