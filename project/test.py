@@ -4,9 +4,20 @@ import os
 
 # Absolute path to the SQLite database
 sqlite_db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'cleaned_data.db'))
+print(f"SQLite DB Path: {sqlite_db_path}")
+
+def check_table_exists(conn, table_name):
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT count(name) FROM sqlite_master WHERE type='table' AND name='{table_name}'")
+    if cursor.fetchone()[0] == 1:
+        print(f"Table {table_name} exists.")
+    else:
+        print(f"Table {table_name} does not exist.")
+    cursor.close()
 
 def test_natural_mineralwater_data():
     conn = sqlite3.connect(sqlite_db_path)
+    check_table_exists(conn, 'natural_mineralwater')
     df = pd.read_sql_query("SELECT * FROM natural_mineralwater", conn)
     conn.close()
 
@@ -19,16 +30,11 @@ def test_natural_mineralwater_data():
     for col in expected_columns:
         assert col in df.columns.values, f"Missing expected column: {col}"
 
-    # Check if 'Ergebnis' column has no 'n.n.' values
-    #assert (df['Ergebnis'] != 'n.n.').all(), "'Ergebnis' column contains 'n.n.' values"
-
-    # Check if 'Ergebnis' column has numeric values
-    #assert pd.to_numeric(df['Ergebnis'], errors='coerce').notna().all(), "'Ergebnis' column contains non-numeric values"
-
     print("All tests passed for natural_mineralwater data")
 
 def test_babynahrung_gemuese_und_huehnchen_mit_nudeln_data():
     conn = sqlite3.connect(sqlite_db_path)
+    check_table_exists(conn, 'babynahrung_gemuese_und_huehnchen_mit_nudeln')
     df = pd.read_sql_query("SELECT * FROM babynahrung_gemuese_und_huehnchen_mit_nudeln", conn)
     conn.close()
 
@@ -40,12 +46,6 @@ def test_babynahrung_gemuese_und_huehnchen_mit_nudeln_data():
     # Check if all expected columns are present
     for col in expected_columns:
         assert col in df.columns.values, f"Missing expected column: {col}"
-
-    # Check if 'Ergebnis' column has no 'n.n.' values
-    #assert (df['Ergebnis'] != 'n.n.').all(), "'Ergebnis' column contains 'n.n.' values"
-
-    # Check if 'Ergebnis' column has numeric values
-    #assert pd.to_numeric(df['Ergebnis'], errors='coerce').notna().all(), "'Ergebnis' column contains non-numeric values"
 
     print("All tests passed for babynahrung_gemuese_und_huehnchen_mit_nudeln data")
 
