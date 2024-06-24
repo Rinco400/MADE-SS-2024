@@ -45,3 +45,4 @@ df2 = df2.drop(columns=['Probenahme-Beginn Zeit', 'Probenahme-Ende Zeit', 'Umwel
 save_to_sqlite(df1, 'natural_mineralwater', sqlite_db_path)
 save_to_sqlite(df2, 'babynahrung_gemuese_und_huehnchen_mit_nudeln', sqlite_db_path)
 
+print("Pipeline executed successfully.")
