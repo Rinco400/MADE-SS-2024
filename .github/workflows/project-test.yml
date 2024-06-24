@@ -23,7 +23,14 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install -r ./project/requirements.txt
 
+    - name: Create data directory
+      run: |
+        mkdir -p ../data
+
+    - name: Run data pipeline
+      run: |
+        python3 ./project/pipeline.py
+
     - name: Run tests
       run: |
         python3 ./project/test.py
-      continue-on-error: true # Optionally set to continue on error if needed
