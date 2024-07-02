@@ -1,10 +1,16 @@
 #!/bin/bash
 
 # Check if Python 3 is installed
-if ! command -v python3 >/dev/null 2>&1 
-then
+if ! command -v python3 >/dev/null 2>&1; then
     echo "The data pipeline needs Python 3 to run, but it is not installed."
     echo "Install Python 3 e.g. via apt (sudo apt install python3)."
+    echo "Aborting..."
+    exit 1
+fi
+
+# Check if requirements.txt exists
+if [ ! -f ./project/requirements.txt ]; then
+    echo "requirements.txt file not found in the project directory."
     echo "Aborting..."
     exit 1
 fi
