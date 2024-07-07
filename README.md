@@ -4,14 +4,12 @@
 
 # Methods of Advanced Data Engineering Jayvee Exercise & Python Pipeline Project
 
-
+<img src="project\pictures\Radioactivity.png" width="800" height="466">
 ## Project Work
 # Analysis of Radioactivity in Baby Food and Natural Mineral Water Quality
 
 ## Main Question
 How do the levels of radioactivity in baby food compare with the quality parameters of natural mineral water, and what are the potential correlations and implications for public health and environmental quality?
-
-<img src="project\pictures\Radioactivity.png" width="800" height="466">
 
 ## Project Overview
 This project aims to conduct a comprehensive analysis of radioactivity levels in baby food ("Babynahrung Gemüse und Hühnchen mit Nudeln") and compare these findings with the quality parameters of natural mineral water within the Hamburg region. By investigating trends over time and across different locations within Hamburg, the study seeks to uncover potential correlations and provide insights into the factors influencing both food and water quality. The findings will contribute to understanding environmental quality and public health implications, guiding future measures for quality management in Hamburg.
@@ -52,10 +50,6 @@ pip install -r requirements.txt
 
 [**Project Visualization**](project/pipeline_compare.ipynb): Jupyter Notebook demonstrating exploratory data analysis (EDA) for 
 the project.
-
-[**Presentation Slides**](project/slides.pdf)
-
-[**Presenation Video Link**](project/presentation-video.md)
 
 ## Data Pipeline and Testing
 
