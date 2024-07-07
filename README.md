@@ -5,6 +5,7 @@
 # Methods of Advanced Data Engineering Jayvee Exercise & Python Pipeline Project
 
 <img src="project\pictures\Radioactivity.png" width="800" height="466">
+
 ## Project Work
 # Analysis of Radioactivity in Baby Food and Natural Mineral Water Quality
 
